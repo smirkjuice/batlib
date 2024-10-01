@@ -2,36 +2,62 @@
 
 namespace bat
 {
-    template<typename Type, Type val>
-    struct integral_t
+    template<typename Type, Type value_param>
+    struct integral
     {
-        // I should rename everything in this struct.
-        static constexpr Type value = val;
-        using value_t               = Type;
-        using type                  = integral_t;
-        constexpr operator value_t() const noexcept
+        static constexpr Type value = value_param;
+        using value_type            = Type;
+        using type                  = integral;
+
+        constexpr operator value_type() const noexcept
         {
             return value;
         }
-        constexpr value_t operator()() const noexcept
+
+        constexpr value_type operator()() const noexcept
         {
             return value;
         }
     };
 
     template<bool B>
-    using boolean = integral_t<bool, B>;
-    using true_t  = boolean<true>;
-    using false_t = boolean<false>;
+    using boolean_t = integral<bool, B>;
+    using true_t    = boolean_t<true>;
+    using false_t   = boolean_t<false>;
 
 
+    // clang-format off
+    // Holy FUCK this shit is unreadable, and clang-format just worsens it.
+    // Good luck.
+
+    /** 
+     * @brief A template struct that shows if a given type is an integral type.
+     * @tparam T The type to check for integral-ness
+     * @example if (bat::is_integral<short>())) { auto sos = sizeof(short); }
+     */
     template<typename T>
-      struct is_integral :
-      boolean < requires(T type, T* ptr, void (*f)(T)) // Invalidates references with T*
-    {
-        reinterpret_cast<T>(type); // Invalidates classes
-        f(0);                      // Invalidates enums
-        ptr + type;                // Invalidates everything else
-    } > {};
+      struct is_integral : boolean_t <requires
+      (T type, T* ptr, void (*foo)(T))
+      {
+        reinterpret_cast<T>(type);
+        foo(0);
+        ptr + type;
+      } > /*  END OF REQUIRES  */
+    { 
+        /*  STRUCT BODY  */
+
+        static constexpr bool value = boolean_t <requires 
+        (T type, T* ptr, void (*foo)(T)) 
+        { 
+          reinterpret_cast<T>(type); 
+          foo(0); 
+          ptr + type;
+        }>::value;
+        // I'll do anything but make a typedef for this lmfao
+        constexpr bool operator()() const noexcept {
+            return value;
+        }
+    };
+    // clang-format on
 
 } // namespace bat

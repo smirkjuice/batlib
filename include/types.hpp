@@ -24,11 +24,7 @@ namespace bat
      * and `long long` is always 64 bits, apart from some rare cases which aren't defined 
      * by the C++ standard.
      */
-    /*=========================================*/
-    /* CONCEPT TYPES                           */
-    /*=========================================*/
-    template<typename T>
-    concept integral = is_integral<T>::value;
+
 
 
     /*=========================================*/
@@ -40,28 +36,28 @@ namespace bat
 
     template<typename T>
     inline constexpr byte& operator<<=(byte& byte_operand, T shift) noexcept
-        requires is_integral<T>::value
+        requires (is_integral<T>())
     {
         return byte_operand = byte_operand << shift;
     }
 
     template<typename T>
     inline constexpr byte operator<<(byte byte_operand, T shift) noexcept
-        requires is_integral<T>::value
+        requires (is_integral<T>())
     {
         return static_cast<byte>(static_cast<uint32_t>(byte_operand) << shift);
     }
 
     template<typename T>
     inline constexpr byte& operator>>=(byte& byte_operand, T shift) noexcept
-        requires is_integral<T>::value
+        requires (is_integral<T>())
     {
         return byte_operand = byte_operand >> shift;
     }
 
     template<class T>
     inline constexpr byte operator>>(byte byte_operand, T shift) noexcept
-        requires is_integral<T>::value
+        requires (is_integral<T>())
     {
         return static_cast<byte>(static_cast<uint32_t>(byte_operand) >> shift);
     }
