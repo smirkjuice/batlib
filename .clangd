@@ -1,6 +1,6 @@
 If:
   PathMatch:
-    [ .*\.cpp, .*\.hpp, .*\.ipp, .*\.tpp, .*\.txx, .*\.ixx, .*\.tcc, .*\.cc, .*\.cxx, .*\.cppm ]
+    [ .*\.cpp, .*\.hpp, .*\.ipp, .*\.tpp, .*\.txx, .*\.ixx, .*\.tcc, .*\.cc, .*\.cxx ]
 
 InlayHints:
   Enabled: No
@@ -10,6 +10,6 @@ Diagnostics:
     Add:
       [ bugprone-*, cert-*, modernize-*, performance-*, cppcoreguidelines-*, clang-analyzer-*, misc-*, readability-*, portability-*]
     Remove:
-      [ bugprone-easily-swappable-parameters, cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers]
+      [cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers]
 CompileFlags:
-  Add: [-std=c++23, -ffreestanding, -nostdlib, -fno-builtin, -fno-rtti, -fno-exceptions, -Iinclude]
+  Add: [-std=c++23, -I./include/]
