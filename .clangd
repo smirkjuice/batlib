@@ -1,6 +1,6 @@
 If:
   PathMatch:
-    [ .*\.cpp, .*\.hpp, .*\.ipp, .*\.tpp, .*\.txx, .*\.ixx, .*\.tcc, .*\.cc, .*\.cxx ]
+    [ .*\.cpp, .*\.hpp, .*\.ipp, .*\.tpp, .*\.txx, .*\.ixx, .*\.tcc, .*\.cc, .*\.cxx, .*\.cppm ]
 
 InlayHints:
   Enabled: No
@@ -12,4 +12,4 @@ Diagnostics:
     Remove:
       [cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers]
 CompileFlags:
-  Add: [-std=c++23, -I./include/]
+  Add: [-std=c++23, -Iinclude/]
